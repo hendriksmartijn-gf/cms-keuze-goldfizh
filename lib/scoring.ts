@@ -34,6 +34,8 @@ export interface Uitslag {
   letOp: Reden | null;
   /** Per meewegend criterium: punten (-1..2) en jouw gewicht. Basis voor vergelijkingen. */
   scores: Record<string, { punten: number; gewicht: number }>;
+  /** Gezet als dit CMS een harde eis niet haalt maar de top 3 aanvult. */
+  buitenEisen?: string[];
 }
 
 export interface Afgevallen {
@@ -42,9 +44,15 @@ export interface Afgevallen {
 }
 
 export interface Resultaat {
+  /** Altijd 3 (bij ≥3 CMS'en): eerst wat aan alle eisen voldoet, aangevuld met de best scorende afvallers. */
+  top: Uitslag[];
+  /** Alles dat aan de eisen voldoet, op score. */
   ranking: Uitslag[];
+  /** Alles dat een harde eis niet haalt, ook als het de top 3 aanvult. */
   afgevallen: Afgevallen[];
 }
+
+export const TOP = 3;
 
 function valtAf(ko: KnockOut, cms: Cms, matrix: Matrix): boolean {
   switch (ko.type) {
@@ -75,14 +83,10 @@ export function bereken(matrix: Matrix, vragen: Vraag[], keuzes: number[]): Resu
   });
 
   const ranking: Uitslag[] = [];
-  const afgevallen: Afgevallen[] = [];
+  const reserve: Uitslag[] = [];
 
   for (const cms of matrix.cms) {
-    const redenen = knockOuts.filter((ko) => valtAf(ko, cms, matrix)).map((ko) => ko.reden);
-    if (redenen.length) {
-      afgevallen.push({ cms, redenen: [...new Set(redenen)] });
-      continue;
-    }
+    const redenen = [...new Set(knockOuts.filter((ko) => valtAf(ko, cms, matrix)).map((ko) => ko.reden))];
 
     let behaald = 0;
     let maximum = 0;
@@ -111,17 +115,25 @@ export function bereken(matrix: Matrix, vragen: Vraag[], keuzes: number[]): Resu
     const letOp =
       zwaarsteEerst.find((b) => b.punten <= 0) ?? zwaarsteEerst.find((b) => b.punten === 1) ?? null;
 
-    ranking.push({
+    const uitslag: Uitslag = {
       cms,
       match: maximum ? Math.max(0, Math.round((100 * behaald) / maximum)) : 0,
       sterk: sterk.map(stripIntern),
       letOp: letOp ? stripIntern(letOp) : null,
       scores: Object.fromEntries(bijdragen.map((b) => [b.criterium, { punten: b.punten, gewicht: b.gewicht }])),
-    });
+    };
+    if (redenen.length) reserve.push({ ...uitslag, buitenEisen: redenen });
+    else ranking.push(uitslag);
   }
 
-  ranking.sort((a, b) => b.match - a.match || a.cms.naam.localeCompare(b.cms.naam));
-  return { ranking, afgevallen };
+  const opScore = (a: Uitslag, b: Uitslag) => b.match - a.match || a.cms.naam.localeCompare(b.cms.naam);
+  ranking.sort(opScore);
+  reserve.sort(opScore);
+  return {
+    top: [...ranking, ...reserve].slice(0, TOP),
+    ranking,
+    afgevallen: reserve.map((u) => ({ cms: u.cms, redenen: u.buitenEisen! })),
+  };
 }
 
 function stripIntern({ criterium, label, tekst, letOp, score, omdat }: Reden): Reden {

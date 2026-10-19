@@ -7,7 +7,7 @@ import { vragen } from "../lib/vragen.ts";
 import type { Matrix } from "../lib/types.ts";
 
 const matrix: Matrix = JSON.parse(readFileSync(new URL("../data/matrix.json", import.meta.url), "utf8"));
-const top = (code: string) => bereken(matrix, vragen, vanCode(code, vragen)!).ranking.slice(0, 3);
+const top = (code: string) => bereken(matrix, vragen, vanCode(code, vragen)!).top;
 
 test("nummer 1 beschrijft wat het is en voor wie, alternatieven zeggen waarop ze beter zijn", () => {
   const t = top("cccacb");
@@ -22,7 +22,7 @@ test("elke combinatie krijgt voor de hele top 3 een tekst, zonder lege of dubbel
   for (let i = 0; i < n.reduce((a, b) => a * b, 1); i++) {
     let rest = i;
     const keuzes = n.map((m) => { const k = rest % m; rest = Math.floor(rest / m); return k; });
-    const t = bereken(matrix, vragen, keuzes).ranking.slice(0, 3);
+    const t = bereken(matrix, vragen, keuzes).top;
     const tekst = basisToelichting(t, matrix);
     for (const u of t) {
       assert.ok(tekst[u.cms.id]?.length > 40, u.cms.id);

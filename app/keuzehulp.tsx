@@ -23,7 +23,7 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
   const klaar = stap >= vragen.length;
   const code = klaar ? naarCode(keuzes) : null;
   const resultaat = useMemo(() => (klaar ? bereken(matrix, vragen, keuzes) : null), [klaar, matrix, vragen, keuzes]);
-  const basis = useMemo(() => (resultaat ? basisToelichting(resultaat.ranking.slice(0, 3), matrix) : {}), [resultaat, matrix]);
+  const basis = useMemo(() => (resultaat ? basisToelichting(resultaat.top, matrix) : {}), [resultaat, matrix]);
   // Gegenereerde toelichting vervangt de basistekst zodra die er is; mislukt het, dan blijft de basis staan.
   const [gegenereerd, setGegenereerd] = useState<{ code: string; teksten: Toelichtingen } | null>(null);
 
@@ -110,17 +110,18 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
     );
   }
 
-  const { ranking, afgevallen } = resultaat!;
+  const { top, ranking, afgevallen: alleAfgevallen } = resultaat!;
   const ai = gegenereerd?.code === code ? gegenereerd.teksten : null;
-  const top = ranking.slice(0, 3);
-  const rest = ranking.slice(3);
+  const inTop = new Set(top.map((u) => u.cms.id));
+  const rest = ranking.filter((u) => !inTop.has(u.cms.id));
+  const afgevallen = alleAfgevallen.filter((a) => !inTop.has(a.cms.id));
   const deelLink = `${parentUrl ? parentUrl.split("?")[0] : typeof window !== "undefined" ? window.location.origin + window.location.pathname : ""}?keuze=${code}`;
 
   return (
     <section className="resultaat" aria-live="polite">
       <header>
         <p className="stap">Jouw eerste advies</p>
-        <h2>{top.length ? `Deze ${top.length === 1 ? "past" : `${top.length} passen`} het best bij jouw situatie` : "Geen CMS past bij al je eisen"}</h2>
+        <h2>Jouw top {top.length}</h2>
         <p className="hulp">
           Gebaseerd op je antwoorden en onze vergelijking van {matrix.cms.length} CMS'en op {matrix.criteria.length}{" "}
           criteria (bijgewerkt {new Date(matrix.bijgewerkt).toLocaleDateString("nl-NL", { month: "long", year: "numeric" })}).
@@ -213,11 +214,19 @@ function UitslagKaart({
           <span className="naam">
             <h3>{cms.naam}</h3>
             {cms.partner && <span className="badge">Goldfizh-partner</span>}
+            {uitslag.buitenEisen && <span className="badge buiten">Buiten je eisen</span>}
           </span>
           <span className="match">{match}%</span>
           <span className="pijl" aria-hidden="true" />
         </summary>
         <div className="inhoud">
+          {uitslag.buitenEisen && (
+            <p className="letop">
+              <span className="sub">Haalt niet al je eisen</span>
+              {cms.naam} {uitslag.buitenEisen.join(" en ")}. We tonen het toch, omdat het verder goed past en minder dan drie
+              opties aan al je eisen voldoen.
+            </p>
+          )}
           {tekst && (
             <p className="toelichting" key={tekst}>
               {tekst}

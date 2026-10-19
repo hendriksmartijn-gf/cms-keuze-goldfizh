@@ -72,3 +72,20 @@ test("elke combinatie geeft minstens één advies", () => {
     for (const u of r.ranking) assert.ok(u.match >= 0 && u.match <= 100);
   }
 });
+
+test("altijd een top 3: eerst wat aan alle eisen voldoet, dan de best scorende afvallers", () => {
+  const n = vragen.map((v) => v.antwoorden.length);
+  for (let i = 0; i < n.reduce((a, b) => a * b, 1); i++) {
+    let rest = i;
+    const keuzes = n.map((m) => { const k = rest % m; rest = Math.floor(rest / m); return k; });
+    const { top, ranking } = bereken(matrix, vragen, keuzes);
+    assert.equal(top.length, 3, naarCode(keuzes));
+    top.forEach((u, j) => assert.equal(!!u.buitenEisen, j >= ranking.length, `${naarCode(keuzes)} positie ${j + 1}`));
+  }
+});
+
+test("zonder developers vult de beste afvaller de top 3 aan, met reden", () => {
+  const { top } = bereken(matrix, vragen, vanCode("aaaaaa", vragen)!);
+  assert.equal(top[2].buitenEisen?.length ? true : false, true);
+  assert.ok(top[2].buitenEisen!.some((r) => r.includes("frontend") || r.includes("bouwtraject")));
+});

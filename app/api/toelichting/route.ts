@@ -18,7 +18,7 @@ export async function GET(req: Request) {
   if (!llmBeschikbaar()) return NextResponse.json({ fout: "Niet geconfigureerd" }, { status: 404 });
 
   const matrix = await getMatrix();
-  const top = bereken(matrix, vragen, keuzes).ranking.slice(0, 3);
+  const top = bereken(matrix, vragen, keuzes).top;
 
   const gecachet = unstable_cache(
     () => genereerToelichting(feitenVoorLlm(top, matrix, vragen, keuzes)),

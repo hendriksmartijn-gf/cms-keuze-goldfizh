@@ -17,6 +17,7 @@
   --kleur-invoer-rand: #7958ff;  /* --purple-02 */
   --kleur-op-accent: #ffffff;
   --kleur-letop: #fff0ef;        /* zachte tint van --orange-00 */
+  --kleur-buiten: #b5372f;      /* tekst op --kleur-letop */
   --kleur-focus: #ff6d65;        /* --orange-00, zoals --gf-focus */
   --groen: #1f8a4c;
   --geel: #c08a1e;
@@ -78,6 +79,8 @@ legend { padding: 0; }
 details[open] > .kop .pijl { transform: translateY(2px) rotate(-135deg); }
 .inhoud { padding: 0 clamp(16px, 4vw, 28px) clamp(18px, 4vw, 28px); }
 .match-klein { color: var(--kleur-zacht); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.badge.buiten { background: var(--kleur-letop); color: var(--kleur-buiten); }
+.uitslag:has(.badge.buiten) .match { color: var(--kleur-zacht); }
 .naam { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-width: 0; }
 .sub { font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--kleur-zacht); margin: 0 0 8px; }
 .redenen { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 12px; }

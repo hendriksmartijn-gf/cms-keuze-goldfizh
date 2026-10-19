@@ -54,14 +54,18 @@ export async function POST(req: Request) {
   const keuzes = vanCode(tekst(body.keuze, 20), vragen);
   if (!keuzes) return NextResponse.json({ fout: "Ongeldige keuze" }, { status: 400 });
 
-  const { ranking, afgevallen } = bereken(await getMatrix(), vragen, keuzes);
+  const { top, afgevallen } = bereken(await getMatrix(), vragen, keuzes);
   const payload = {
     ...lead,
     toestemming: true,
     bron: "cms-keuzehulp",
     keuze: tekst(body.keuze, 20),
     antwoorden: Object.fromEntries(vragen.map((v, i) => [v.id, v.antwoorden[keuzes[i]].label])),
-    advies: ranking.slice(0, 3).map((u) => ({ cms: u.cms.naam, match: u.match, letOp: u.letOp?.label ?? null })),
+    advies: top.map((u) => ({
+      cms: u.cms.naam,
+      match: u.match,
+      letOp: u.buitenEisen ? `buiten je eisen: ${u.buitenEisen.join("; ")}` : (u.letOp?.label ?? null),
+    })),
     afgevallen: afgevallen.map((a) => a.cms.naam),
     ontvangen: new Date().toISOString(),
   };

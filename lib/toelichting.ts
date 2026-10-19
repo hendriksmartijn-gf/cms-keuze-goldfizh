@@ -40,6 +40,12 @@ export function basisToelichting(top: Uitslag[], matrix: Matrix): Toelichtingen 
       return;
     }
     const beter = beterDan(u, eerste).slice(0, MAX_PUNTEN).map(inZin);
+    if (u.buitenEisen) {
+      uit[u.cms.id] =
+        `${wat} Blijkt die eis minder hard, dan is ${naam} het overwegen waard` +
+        (beter.length ? `: het is sterker in ${opsomming(beter)}.` : `. Het past bij ${pastBij}`);
+      return;
+    }
     uit[u.cms.id] = beter.length
       ? `${wat} Kies ${naam} boven ${eerste.cms.naam} als je meer nadruk wilt leggen op ${opsomming(beter)}.`
       : `${wat} Het scoort op jouw belangrijkste punten vergelijkbaar met of iets lager dan ${eerste.cms.naam}. ${naam} past bij ${pastBij}`;
@@ -64,6 +70,7 @@ export function feitenVoorLlm(top: Uitslag[], matrix: Matrix, vragen: Vraag[], k
       architectuur: cel("architectuur", u.cms.id),
       sterkVoorJou: u.sterk.map((r) => ({ onderwerp: crit(r.criterium).inZin, feit: r.tekst })),
       aandachtspunt: u.letOp ? { onderwerp: crit(u.letOp.criterium).inZin, feit: u.letOp.tekst } : null,
+      ...(u.buitenEisen ? { haaltEisNiet: u.buitenEisen.map((r) => `${u.cms.naam} ${r}`) } : {}),
       ...(i > 0
         ? {
             beterDanNummer1Op: beterDan(u, eerste)
