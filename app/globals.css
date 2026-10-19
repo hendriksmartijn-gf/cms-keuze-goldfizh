@@ -1,83 +1,112 @@
-/* Merkkleuren: vervang door de Goldfizh-tokens uit Webflow. */
+/*
+ * Goldfizh-huisstijl, overgenomen uit goldfizh.nl (Webflow shared CSS):
+ * Epilogue light-koppen met krappe spatiëring, paars #6331f4, vlakke kaarten op #f0f2fa,
+ * knoppen met 4px radius, formulier als paars vlak, focus als oranje streeplijn.
+ */
 :root {
-  --kleur-tekst: #16141f;
-  --kleur-zacht: #5d5a6b;
-  --kleur-lijn: #e4e1ee;
-  --kleur-vlak: #ffffff;
-  --kleur-achtergrond: #ffffff;
-  --kleur-accent: #6b3cf5;
-  --kleur-accent-zacht: #efe9ff;
-  --kleur-letop: #fff8f1;
-  --kleur-invoer: #ffffff;
+  --kleur-tekst: #22222d;        /* --black-01 */
+  --kleur-zacht: #555e6c;        /* --black-03 */
+  --kleur-lijn: #dce0e6;         /* --grey-03 */
+  --kleur-vlak: #f0f2fa;         /* --white-02 */
+  --kleur-achtergrond: #ffffff;  /* --white-01 */
+  --kleur-accent: #6331f4;       /* --purple-00 */
+  --kleur-accent-hover: #5436ce; /* --purple-hover */
+  --kleur-accent-zacht: #e2dbff; /* --purple-04 */
+  --kleur-accent-licht: #a38dfb; /* --purple-03 */
+  --kleur-invoer: #5436ce;       /* --paars-01, velden op het paarse formulier */
+  --kleur-invoer-rand: #7958ff;  /* --purple-02 */
+  --kleur-op-accent: #ffffff;
+  --kleur-letop: #fff0ef;        /* zachte tint van --orange-00 */
+  --kleur-focus: #ff6d65;        /* --orange-00, zoals --gf-focus */
   --groen: #1f8a4c;
-  --geel: #b7791f;
-  --oranje: #c2571a;
-  --rood: #c53030;
-  --radius: 14px;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --geel: #c08a1e;
+  --oranje: #ff6d65;
+  --rood: #d6312b;
+  --radius: .25rem;              /* --0-25 */
+  --rond: 100px;                 /* --round */
+  --ease: cubic-bezier(0.25, 0.1, 0, 1.001); /* --gf-ease */
+  --font: var(--font-epilogue, "Epilogue"), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; font-family: var(--font); color: var(--kleur-tekst); background: var(--kleur-achtergrond); line-height: 1.5; }
+body { margin: 0; font-family: var(--font); font-weight: 300; font-size: 1rem; line-height: 1.65; color: var(--kleur-tekst); background: var(--kleur-achtergrond); }
 main { max-width: 760px; margin: 0 auto; padding: 16px; }
 main.standalone { padding-top: 48px; }
-h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); line-height: 1.25; margin: 0 0 8px; }
-h3 { margin: 0; font-size: 1.15rem; }
+strong { font-weight: 500; }
 
-.kaart, .uitslag, .lead { background: var(--kleur-vlak); border: 1px solid var(--kleur-lijn); border-radius: var(--radius); padding: 24px; }
-.stap { color: var(--kleur-accent); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; margin: 0 0 6px; }
-.hulp { color: var(--kleur-zacht); font-size: .925rem; margin: 0 0 12px; }
+h2 { font-size: clamp(1.75rem, 3.6vw, 2.5rem); line-height: 1.2; font-weight: 300; letter-spacing: -.04em; margin: 0 0 12px; text-wrap: balance; }
+h3 { margin: 0; font-size: 1.5rem; line-height: 1.4; font-weight: 400; letter-spacing: -.03em; }
 
-.voortgang { height: 4px; background: var(--kleur-lijn); border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
-.voortgang div { height: 100%; background: var(--kleur-accent); transition: width .25s ease; }
+.kaart { background: var(--kleur-vlak); padding: clamp(24px, 5vw, 48px); }
+.stap { color: var(--kleur-accent); font-weight: 500; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 10px; }
+.hulp { color: var(--kleur-zacht); font-size: .95rem; margin: 0 0 12px; }
 
-fieldset { border: 0; margin: 0; padding: 0; }
+.voortgang { height: 3px; background: var(--kleur-lijn); overflow: hidden; margin-bottom: 28px; }
+.voortgang div { height: 100%; background: var(--kleur-accent); transition: width .5s var(--ease); }
+
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 legend { padding: 0; }
-.opties { display: grid; gap: 10px; margin: 16px 0; }
-.optie { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border: 1.5px solid var(--kleur-lijn); border-radius: 10px; cursor: pointer; transition: border-color .15s, background .15s; }
+.opties { display: grid; gap: 10px; margin: 20px 0; }
+.optie { display: flex; gap: 14px; align-items: center; padding: 16px 18px; background: var(--kleur-achtergrond); border: 1px solid var(--kleur-lijn); border-radius: var(--radius); cursor: pointer; font-size: 1.05rem; transition: border-color .2s var(--ease), background-color .2s var(--ease); }
 .optie:hover { border-color: var(--kleur-accent); }
 .optie.gekozen { border-color: var(--kleur-accent); background: var(--kleur-accent-zacht); }
-.optie input { accent-color: var(--kleur-accent); width: 18px; height: 18px; flex: none; }
-.optie:has(input:focus-visible) { outline: 2px solid var(--kleur-accent); outline-offset: 2px; }
+.optie input { accent-color: var(--kleur-accent); width: 1.2rem; height: 1.2rem; margin: 0; flex: none; }
+.optie:has(input:focus-visible) { outline: 2.5px dashed var(--kleur-focus); outline-offset: 2px; }
 
-.knop { background: var(--kleur-accent); color: #fff; border: 0; border-radius: 999px; padding: 12px 22px; font: inherit; font-weight: 600; cursor: pointer; }
+.knop { display: inline-flex; align-items: center; justify-content: center; gap: 12px; background: var(--kleur-accent); color: var(--kleur-op-accent); border: 0; border-radius: var(--radius); padding: .6rem 1.25rem .5rem; min-height: 3rem; font: inherit; font-size: 1.125rem; font-weight: 500; line-height: 1.875rem; cursor: pointer; transition: background-color .2s ease-in-out; }
+.knop:hover { background: var(--kleur-accent-hover); }
 .knop:disabled { opacity: .6; cursor: progress; }
-.knop.secundair { background: transparent; color: var(--kleur-accent); border: 1.5px solid var(--kleur-accent); }
-.link { background: none; border: 0; padding: 0; color: var(--kleur-zacht); font: inherit; text-decoration: underline; cursor: pointer; }
+.knop.secundair { background: transparent; color: var(--kleur-accent); box-shadow: inset 0 0 0 1px var(--kleur-accent); }
+.knop.secundair:hover { background: var(--kleur-accent-zacht); }
+.knop:focus-visible, .link:focus-visible, .lead a:focus-visible { outline: 2.5px dashed var(--kleur-focus); outline-offset: 3px; }
+.link { background: none; border: 0; padding: 0; color: var(--kleur-zacht); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.link:hover { color: var(--kleur-accent); }
 
-.resultaat > header { margin-bottom: 20px; }
-.top { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 14px; }
-.uitslag.eerste { border: 2px solid var(--kleur-accent); }
-.kop { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-.positie { width: 28px; height: 28px; border-radius: 50%; background: var(--kleur-accent-zacht); color: var(--kleur-accent); display: grid; place-items: center; font-weight: 700; font-size: .9rem; }
-.badge { font-size: .75rem; padding: 2px 8px; border-radius: 999px; background: var(--kleur-accent-zacht); color: var(--kleur-accent); font-weight: 600; }
-.match { margin-left: auto; font-weight: 700; }
-.match-klein { color: var(--kleur-zacht); font-size: .9rem; }
-.sub { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--kleur-zacht); margin: 0 0 6px; }
-.redenen, .letop ul { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
-.reden { padding-left: 14px; border-left: 3px solid var(--kleur-lijn); list-style: none; }
+.resultaat > header { margin-bottom: 28px; }
+.top { list-style: none; padding: 0; margin: 0 0 32px; display: grid; gap: 16px; }
+.uitslag { background: var(--kleur-vlak); padding: clamp(20px, 4vw, 40px); }
+.uitslag.eerste { background: var(--kleur-achtergrond); box-shadow: inset 0 0 0 2px var(--kleur-accent); }
+.kop { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.positie { width: 2rem; height: 2rem; border-radius: var(--rond); background: var(--kleur-accent-zacht); color: var(--kleur-accent); display: grid; place-items: center; font-weight: 500; font-size: .95rem; }
+.badge { font-size: .75rem; padding: 3px 10px; border-radius: var(--rond); background: var(--kleur-accent-zacht); color: var(--kleur-accent); font-weight: 500; }
+.match { margin-left: auto; font-weight: 500; font-size: 1.125rem; font-variant-numeric: tabular-nums; }
+.match-klein { color: var(--kleur-zacht); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.sub { font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--kleur-zacht); margin: 0 0 8px; }
+.redenen { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 12px; }
+.reden { padding-left: 14px; border-left: 2px solid var(--kleur-lijn); list-style: none; }
 .reden.groen { border-color: var(--groen); }
 .reden.geel { border-color: var(--geel); }
 .reden.oranje { border-color: var(--oranje); }
 .reden.rood { border-color: var(--rood); }
-.omdat { display: block; color: var(--kleur-zacht); font-size: .85rem; }
-.letop { background: var(--kleur-letop); border-radius: 10px; padding: 12px; }
+.omdat { display: block; color: var(--kleur-zacht); font-size: .85rem; line-height: 1.5; margin-top: 2px; }
+.letop { background: var(--kleur-letop); padding: 14px 16px; }
 .letop .reden { margin: 0; }
 
-.lead { background: var(--kleur-accent-zacht); border-color: transparent; margin-bottom: 20px; }
-.lead h3 { margin-bottom: 6px; }
-.velden { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
-.velden label { display: grid; gap: 4px; font-size: .9rem; font-weight: 600; }
-.velden input { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--kleur-lijn); border-radius: 8px; background: var(--kleur-invoer); color: var(--kleur-tekst); }
-.velden .hulp { font-weight: 400; display: inline; }
+/* Formulier zoals op goldfizh.nl: paars vlak, witte tekst, paarse velden. */
+.lead { background: var(--kleur-accent); color: var(--kleur-op-accent); padding: clamp(24px, 5vw, 48px); margin-bottom: 24px; }
+.lead h3 { margin-bottom: 8px; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; letter-spacing: -.04em; }
+.lead p { margin: 0; color: var(--kleur-accent-zacht); }
+.lead a { color: var(--kleur-op-accent); text-underline-offset: 3px; }
+.lead .hulp { color: var(--kleur-accent-licht); }
+.velden { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0; }
+.velden label { display: grid; gap: 6px; font-size: .95rem; font-weight: 500; color: var(--kleur-accent-zacht); }
+.velden input { font: inherit; font-weight: 400; height: 3rem; padding: 0 14px; border: 1px solid var(--kleur-invoer-rand); border-radius: var(--radius); background: var(--kleur-invoer); color: var(--kleur-op-accent); }
+.velden input:focus { outline: 2.5px dashed var(--kleur-focus); outline-offset: 2px; }
+.velden .hulp { font-weight: 300; display: inline; }
 .hp { position: absolute; left: -9999px; }
-.check { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; margin-bottom: 16px; }
-.check input { margin-top: 4px; accent-color: var(--kleur-accent); }
-.foutmelding { color: var(--rood); }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: .95rem; margin-bottom: 24px; color: var(--kleur-accent-zacht); }
+.check input { margin-top: 5px; width: 1.2rem; height: 1.2rem; accent-color: var(--kleur-tekst); flex: none; }
+.lead .knop { background: var(--kleur-tekst); }
+.lead .knop:hover { background: #3a3d49; } /* --black-02 */
+.foutmelding { color: var(--kleur-op-accent); background: var(--rood); padding: 8px 12px; margin-top: 16px !important; }
+.lead.klaar p { color: var(--kleur-accent-zacht); }
 
-.extra { border-top: 1px solid var(--kleur-lijn); padding: 12px 0; }
-.extra summary { cursor: pointer; font-weight: 600; }
+.extra { border-top: 1px solid var(--kleur-lijn); padding: 14px 0; }
+.extra summary { cursor: pointer; font-weight: 500; }
+.extra summary:focus-visible { outline: 2.5px dashed var(--kleur-focus); outline-offset: 2px; }
 .extra ul { padding-left: 18px; }
-.extra li { margin: 6px 0; }
-.acties { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 16px 0; }
-.disclaimer { font-size: .8rem; color: var(--kleur-zacht); }
+.extra li { margin: 8px 0; }
+.acties { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin: 20px 0; }
+.disclaimer { font-size: .85rem; color: var(--kleur-zacht); line-height: 1.6; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
