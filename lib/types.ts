@@ -29,6 +29,8 @@ export interface Criterium {
 export interface Cel {
   score: Score;
   tekst: string;
+  /** Voor zwakke punten: wat het in gewone taal betekent en wanneer het een probleem is. */
+  letOp?: string;
   bron?: string;
   gecontroleerd?: string;
 }

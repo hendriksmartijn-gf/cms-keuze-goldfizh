@@ -19,6 +19,8 @@ export interface Reden {
   criterium: string;
   label: string;
   tekst: string;
+  /** Uitleg in gewone taal voor als dit het aandachtspunt is. */
+  letOp?: string;
   score: Score;
   /** Het antwoord dat dit criterium zwaar liet wegen, voor "omdat je aangaf…". */
   omdat?: string;
@@ -96,6 +98,7 @@ export function bereken(matrix: Matrix, vragen: Vraag[], keuzes: number[]): Resu
         criterium: crit.id,
         label: crit.label,
         tekst: cel.tekst,
+        letOp: cel.letOp,
         score: cel.score,
         omdat: omdat[crit.id]?.label,
         gewicht,
@@ -121,6 +124,6 @@ export function bereken(matrix: Matrix, vragen: Vraag[], keuzes: number[]): Resu
   return { ranking, afgevallen };
 }
 
-function stripIntern({ criterium, label, tekst, score, omdat }: Reden): Reden {
-  return { criterium, label, tekst, score, omdat };
+function stripIntern({ criterium, label, tekst, letOp, score, omdat }: Reden): Reden {
+  return { criterium, label, tekst, letOp, score, omdat };
 }

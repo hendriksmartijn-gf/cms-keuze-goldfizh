@@ -224,7 +224,8 @@
       },
       "contentful": {
         "score": "geel",
-        "tekst": "Abstract, went na training"
+        "tekst": "Abstract, went na training",
+        "letOp": "De editor is abstract: redacteuren werken met losse velden in plaats van met de pagina zoals die eruitziet. Reken op training voordat het team zelfstandig werkt."
       },
       "storyblok": {
         "score": "groen",
@@ -232,11 +233,13 @@
       },
       "drupal": {
         "score": "geel",
-        "tekst": "Stevige leercurve, beter met Gin/Claro"
+        "tekst": "Stevige leercurve, beter met Gin/Claro",
+        "letOp": "Drupal heeft een stevige leercurve voor redacteuren. Met een moderne beheerinterface (zoals Gin of Claro) wordt het beter, maar plan training in."
       },
       "sanity": {
         "score": "geel",
-        "tekst": "Krachtig, maar lange inwerktijd"
+        "tekst": "Krachtig, maar lange inwerktijd",
+        "letOp": "Sanity is krachtig, maar redacteuren hebben langer nodig om eraan te wennen. Hoe makkelijk het wordt, hangt sterk af van hoe de developers de editor inrichten."
       },
       "prepr": {
         "score": "groen",
@@ -244,17 +247,20 @@
       },
       "contentstack": {
         "score": "geel",
-        "tekst": "Enterprise-UI, training nodig"
+        "tekst": "Enterprise-UI, training nodig",
+        "letOp": "De interface is gemaakt voor grote organisaties en voelt zwaar voor kleine teams. Training is nodig."
       }
     },
     "contentbeheer": {
       "wordpress": {
         "score": "oranje",
-        "tekst": "Zwak native model, plugin-afhankelijk"
+        "tekst": "Zwak native model, plugin-afhankelijk",
+        "letOp": "WordPress is gebouwd voor pagina's en berichten. Wil je content gestructureerd hergebruiken, op meerdere plekken of kanalen, dan heb je plugins nodig en wordt het snel rommelig."
       },
       "webflow": {
         "score": "geel",
-        "tekst": "Collections beperkt, localization betaald"
+        "tekst": "Collections beperkt, localization betaald",
+        "letOp": "Collections (Webflow's databases) hebben limieten, en meertaligheid kost extra. Heb je veel content of meerdere talen, check dan vooraf of het binnen de grenzen past."
       },
       "contentful": {
         "score": "groen",
@@ -284,11 +290,13 @@
     "workflow": {
       "wordpress": {
         "score": "oranje",
-        "tekst": "Alleen revisies, rest via plugins"
+        "tekst": "Alleen revisies, rest via plugins",
+        "letOp": "Standaard kun je alleen oude versies terugzetten. Wil je een vaste route van concept naar review naar publicatie, dan heb je plugins nodig."
       },
       "webflow": {
         "score": "geel",
-        "tekst": "Page branching, workflows op Enterprise"
+        "tekst": "Page branching, workflows op Enterprise",
+        "letOp": "Je kunt een pagina in een aparte versie bewerken, maar echte goedkeuringsflows (concept, review, publicatie) zitten pas in het Enterprise-plan."
       },
       "contentful": {
         "score": "groen",
@@ -318,11 +326,13 @@
     "rollen": {
       "wordpress": {
         "score": "geel",
-        "tekst": "Basisrollen, uitbreiden via plugins"
+        "tekst": "Basisrollen, uitbreiden via plugins",
+        "letOp": "Er zijn een paar standaardrollen. Wil je per afdeling of contenttype bepalen wie wat mag, dan heb je plugins nodig."
       },
       "webflow": {
         "score": "geel",
-        "tekst": "Per site/collectie; custom roles op Enterprise"
+        "tekst": "Per site/collectie; custom roles op Enterprise",
+        "letOp": "Rechten regel je per site of collection. Eigen rollen samenstellen kan pas in het Enterprise-plan."
       },
       "contentful": {
         "score": "groen",
@@ -338,7 +348,8 @@
       },
       "sanity": {
         "score": "geel",
-        "tekst": "Custom roles vanaf Growth"
+        "tekst": "Custom roles vanaf Growth",
+        "letOp": "Eigen rollen samenstellen kan pas vanaf het Growth-abonnement. Op het gratis plan zijn de rechten beperkt."
       },
       "prepr": {
         "score": "groen",
@@ -386,7 +397,8 @@
     "dx": {
       "wordpress": {
         "score": "geel",
-        "tekst": "Bekend, maar legacy-PHP"
+        "tekst": "Bekend, maar legacy-PHP",
+        "letOp": "Bijna elke developer kent WordPress, maar de basis is oudere PHP-techniek. Moderne front-end-ontwikkeling past er minder goed bij."
       },
       "webflow": {
         "score": "groen",
@@ -398,11 +410,13 @@
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Goede API's, js-bridge vereist voor preview"
+        "tekst": "Goede API's, js-bridge vereist voor preview",
+        "letOp": "De API's zijn goed, maar voor de live preview in de visuele editor moet je een extra koppeling (de js-bridge) inbouwen. Dat kost ontwikkeltijd."
       },
       "drupal": {
         "score": "oranje",
-        "tekst": "Specialist nodig, steile curve"
+        "tekst": "Specialist nodig, steile curve",
+        "letOp": "Voor Drupal heb je gespecialiseerde developers nodig, en die zijn schaarser. Zonder vaste partner met Drupal-ervaring wordt elke aanpassing duur."
       },
       "sanity": {
         "score": "groen",
@@ -414,17 +428,20 @@
       },
       "contentstack": {
         "score": "geel",
-        "tekst": "Krachtig maar complex, specialist nodig"
+        "tekst": "Krachtig maar complex, specialist nodig",
+        "letOp": "Contentstack kan veel, maar is complex. Reken op een specialist om het goed in te richten en te onderhouden."
       }
     },
     "otap": {
       "wordpress": {
         "score": "oranje",
-        "tekst": "Zelf bouwen via hosting-staging"
+        "tekst": "Zelf bouwen via hosting-staging",
+        "letOp": "WordPress heeft geen ingebouwde test- en acceptatieomgeving. Die moet je zelf opzetten via je hostingpartij, inclusief het overzetten van content en instellingen."
       },
       "webflow": {
         "score": "oranje",
-        "tekst": "Staging-domein + branching, geen echte multi-env"
+        "tekst": "Staging-domein + branching, geen echte multi-env",
+        "letOp": "Webflow werkt standaard met twee omgevingen: een testomgeving en live. Wil je een echte OTAP-straat met test, acceptatie én live, dan is Webflow niet geschikt."
       },
       "contentful": {
         "score": "groen",
@@ -432,7 +449,8 @@
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Pipelines als add-on op hogere plannen"
+        "tekst": "Pipelines als add-on op hogere plannen",
+        "letOp": "Aparte omgevingen voor test, acceptatie en live (pipelines) zijn een betaalde uitbreiding op de hogere abonnementen."
       },
       "drupal": {
         "score": "groen",
@@ -448,7 +466,8 @@
       },
       "contentstack": {
         "score": "oranje",
-        "tekst": "Environments + branches native"
+        "tekst": "Environments + branches native",
+        "letOp": "Contentstack heeft omgevingen en branches, maar in onze beoordeling scoort de inrichting hiervan lager. Check vooraf of het past bij jullie releaseproces."
       }
     },
     "hosting": {
@@ -458,11 +477,13 @@
       },
       "webflow": {
         "score": "oranje",
-        "tekst": "VS (AWS/Fastly, globale CDN), EU optioneel"
+        "tekst": "VS (AWS/Fastly, globale CDN), EU optioneel",
+        "letOp": "Je data staat standaard in de VS (AWS en Fastly). Opslag in de EU is optioneel. Heb je een eis voor Europese opslag, regel dat dan expliciet."
       },
       "contentful": {
         "score": "geel",
-        "tekst": "VS standaard, EU optioneel"
+        "tekst": "VS standaard, EU optioneel",
+        "letOp": "Je data staat standaard in de VS. Opslag in de EU is mogelijk, maar moet je apart regelen."
       },
       "storyblok": {
         "score": "groen",
@@ -482,7 +503,8 @@
       },
       "contentstack": {
         "score": "oranje",
-        "tekst": "VS standaard"
+        "tekst": "VS standaard",
+        "letOp": "Je data staat standaard in de VS. Heb je een eis voor Europese opslag, dan past dit niet zonder extra afspraken."
       }
     },
     "jurisdictie": {
@@ -492,11 +514,13 @@
       },
       "webflow": {
         "score": "oranje",
-        "tekst": "VS"
+        "tekst": "VS",
+        "letOp": "Webflow is een Amerikaans bedrijf en valt onder Amerikaans recht (de CLOUD Act). Amerikaanse overheden kunnen dan in bepaalde gevallen data opvragen, ook als die in Europa staat."
       },
       "contentful": {
         "score": "rood",
-        "tekst": "Was DE → wordt VS (Salesforce, closing verwacht Q3 FY2027)"
+        "tekst": "Was DE → wordt VS (Salesforce, closing verwacht Q3 FY2027)",
+        "letOp": "Contentful was Duits, maar wordt overgenomen door Salesforce en valt daarmee onder Amerikaans recht (de CLOUD Act). De afronding wordt verwacht in Q3 van Salesforce' boekjaar 2027."
       },
       "storyblok": {
         "score": "groen",
@@ -508,7 +532,8 @@
       },
       "sanity": {
         "score": "oranje",
-        "tekst": "VS (Palo Alto), ondanks EU-data"
+        "tekst": "VS (Palo Alto), ondanks EU-data",
+        "letOp": "Je data kan in Europa staan, maar Sanity is een Amerikaans bedrijf en valt onder Amerikaans recht (de CLOUD Act). Voor organisaties met strikte eisen kan dat een probleem zijn."
       },
       "prepr": {
         "score": "groen",
@@ -516,13 +541,15 @@
       },
       "contentstack": {
         "score": "oranje",
-        "tekst": "VS (San Francisco)"
+        "tekst": "VS (San Francisco)",
+        "letOp": "Contentstack is een Amerikaans bedrijf en valt onder Amerikaans recht (de CLOUD Act). Voor organisaties met strikte eisen aan data kan dat een probleem zijn."
       }
     },
     "aiBeheer": {
       "wordpress": {
         "score": "oranje",
-        "tekst": "Geen officiële MCP, community-experimenten"
+        "tekst": "Geen officiële MCP, community-experimenten",
+        "letOp": "Er is geen officiële koppeling waarmee AI-agents content kunnen beheren (MCP), alleen experimenten uit de community. Wil je hier serieus mee aan de slag, dan bouw je het zelf."
       },
       "webflow": {
         "score": "groen",
@@ -538,7 +565,8 @@
       },
       "drupal": {
         "score": "geel",
-        "tekst": "Community-modules; Acquia-agents commercieel"
+        "tekst": "Community-modules; Acquia-agents commercieel",
+        "letOp": "AI-agents koppelen kan via community-modules. Kant-en-klare agents zijn er alleen commercieel, via Acquia."
       },
       "sanity": {
         "score": "groen",
@@ -550,7 +578,8 @@
       },
       "contentstack": {
         "score": "geel",
-        "tekst": "AI-automations aanwezig, MCP minder prominent"
+        "tekst": "AI-automations aanwezig, MCP minder prominent",
+        "letOp": "Er zijn AI-automatiseringen, maar een open koppeling voor AI-agents (MCP) staat minder centraal dan bij andere headless CMS'en."
       }
     },
     "aiVindbaarheid": {
@@ -564,11 +593,13 @@
       },
       "contentful": {
         "score": "geel",
-        "tekst": "Hangt af van frontend (SSR vereist)"
+        "tekst": "Hangt af van frontend (SSR vereist)",
+        "letOp": "Of AI-zoekmachines je content goed kunnen lezen, hangt af van hoe de website zelf gebouwd wordt. De pagina's moeten op de server worden opgebouwd (SSR). Neem dat mee in de bouw."
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Hangt af van frontend (SSR vereist)"
+        "tekst": "Hangt af van frontend (SSR vereist)",
+        "letOp": "Of AI-zoekmachines je content goed kunnen lezen, hangt af van hoe de website zelf gebouwd wordt. De pagina's moeten op de server worden opgebouwd (SSR). Neem dat mee in de bouw."
       },
       "drupal": {
         "score": "groen",
@@ -576,21 +607,25 @@
       },
       "sanity": {
         "score": "geel",
-        "tekst": "Hangt af van frontend (SSR vereist)"
+        "tekst": "Hangt af van frontend (SSR vereist)",
+        "letOp": "Of AI-zoekmachines je content goed kunnen lezen, hangt af van hoe de website zelf gebouwd wordt. De pagina's moeten op de server worden opgebouwd (SSR). Neem dat mee in de bouw."
       },
       "prepr": {
         "score": "geel",
-        "tekst": "Hangt af van frontend (SSR vereist)"
+        "tekst": "Hangt af van frontend (SSR vereist)",
+        "letOp": "Of AI-zoekmachines je content goed kunnen lezen, hangt af van hoe de website zelf gebouwd wordt. De pagina's moeten op de server worden opgebouwd (SSR). Neem dat mee in de bouw."
       },
       "contentstack": {
         "score": "geel",
-        "tekst": "Hangt af van frontend (SSR vereist)"
+        "tekst": "Hangt af van frontend (SSR vereist)",
+        "letOp": "Of AI-zoekmachines je content goed kunnen lezen, hangt af van hoe de website zelf gebouwd wordt. De pagina's moeten op de server worden opgebouwd (SSR). Neem dat mee in de bouw."
       }
     },
     "personalisatie": {
       "wordpress": {
         "score": "oranje",
-        "tekst": "Alleen via plugins"
+        "tekst": "Alleen via plugins",
+        "letOp": "Personaliseren en A/B-testen kan alleen met plugins. Wil je dit structureel doen, dan wordt het een lappendeken van losse tools."
       },
       "webflow": {
         "score": "groen",
@@ -602,15 +637,18 @@
       },
       "storyblok": {
         "score": "oranje",
-        "tekst": "Niet native, externe tooling nodig"
+        "tekst": "Niet native, externe tooling nodig",
+        "letOp": "Personaliseren en A/B-testen zit er niet in. Daarvoor heb je een aparte tool nodig, met eigen kosten en een extra koppeling."
       },
       "drupal": {
         "score": "geel",
-        "tekst": "Modules / Acquia Personalization"
+        "tekst": "Modules / Acquia Personalization",
+        "letOp": "Personaliseren kan via modules of via het betaalde Acquia Personalization. Het zit niet standaard ingebouwd."
       },
       "sanity": {
         "score": "oranje",
-        "tekst": "Geen native personalisatie of testing"
+        "tekst": "Geen native personalisatie of testing",
+        "letOp": "Sanity heeft geen ingebouwde personalisatie of A/B-testen. Wil je dat, dan heb je een aparte tool nodig."
       },
       "prepr": {
         "score": "groen",
@@ -624,7 +662,8 @@
     "meetbaarheid": {
       "wordpress": {
         "score": "geel",
-        "tekst": "Extern (GA4 e.d.)"
+        "tekst": "Extern (GA4 e.d.)",
+        "letOp": "Er zit geen analytics in. Je meet via een externe tool zoals GA4."
       },
       "webflow": {
         "score": "groen",
@@ -632,19 +671,23 @@
       },
       "contentful": {
         "score": "geel",
-        "tekst": "Extern"
+        "tekst": "Extern",
+        "letOp": "Er zit geen analytics in. Je meet via een externe tool zoals GA4."
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Extern"
+        "tekst": "Extern",
+        "letOp": "Er zit geen analytics in. Je meet via een externe tool zoals GA4."
       },
       "drupal": {
         "score": "geel",
-        "tekst": "Extern"
+        "tekst": "Extern",
+        "letOp": "Er zit geen analytics in. Je meet via een externe tool zoals GA4."
       },
       "sanity": {
         "score": "geel",
-        "tekst": "Insights beperkt, extern nodig"
+        "tekst": "Insights beperkt, extern nodig",
+        "letOp": "De ingebouwde inzichten zijn beperkt. Voor echte analyses heb je een externe tool nodig."
       },
       "prepr": {
         "score": "groen",
@@ -666,11 +709,13 @@
       },
       "contentful": {
         "score": "geel",
-        "tekst": "€0 – ±€300 Lite; werkelijk vaak 40–60% hoger door limieten"
+        "tekst": "€0 – ±€300 Lite; werkelijk vaak 40–60% hoger door limieten",
+        "letOp": "Het instapplan is goedkoop, maar door limieten op gebruikers en content valt de rekening in de praktijk vaak 40 tot 60% hoger uit. Reken met je echte volumes."
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "±€100 – €350; Enterprise custom"
+        "tekst": "±€100 – €350; Enterprise custom",
+        "letOp": "De licentie kost ongeveer €100 tot €350 per maand. Voor Enterprise geldt een prijs op maat."
       },
       "drupal": {
         "score": "groen",
@@ -678,15 +723,18 @@
       },
       "sanity": {
         "score": "geel",
-        "tekst": "€0 – ±€15 p/ gebruiker; Enterprise custom"
+        "tekst": "€0 – ±€15 p/ gebruiker; Enterprise custom",
+        "letOp": "Je betaalt per gebruiker (tot ongeveer €15 per maand). Met een groot team loopt dat op; Enterprise is op maat."
       },
       "prepr": {
         "score": "geel",
-        "tekst": "±€300 – €500"
+        "tekst": "±€300 – €500",
+        "letOp": "De licentie kost ongeveer €300 tot €500 per maand. Dat is meer dan de instapplannen van andere CMS'en."
       },
       "contentstack": {
         "score": "rood",
-        "tekst": "Vanaf ±€995, enterprise-only"
+        "tekst": "Vanaf ±€995, enterprise-only",
+        "letOp": "Contentstack begint rond €995 per maand en is alleen bedoeld voor enterprise. Voor kleinere organisaties is dat meestal te veel."
       }
     },
     "implementatie": {
@@ -700,27 +748,33 @@
       },
       "contentful": {
         "score": "oranje",
-        "tekst": "Hoog: frontend volledig zelf bouwen"
+        "tekst": "Hoog: frontend volledig zelf bouwen",
+        "letOp": "Contentful levert alleen het beheer van content. De website zelf moet volledig gebouwd worden, en dat maakt de implementatie duur."
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Gemiddeld: frontend zelf, editor helpt"
+        "tekst": "Gemiddeld: frontend zelf, editor helpt",
+        "letOp": "De website moet je zelf laten bouwen. De visuele editor maakt het daarna wel makkelijker voor redacteuren."
       },
       "drupal": {
         "score": "rood",
-        "tekst": "Hoog: specialistisch bouwtraject"
+        "tekst": "Hoog: specialistisch bouwtraject",
+        "letOp": "Een Drupal-site bouwen is een specialistisch traject. Reken op een hogere investering en een langere doorlooptijd."
       },
       "sanity": {
         "score": "geel",
-        "tekst": "Gemiddeld–hoog: studio + frontend"
+        "tekst": "Gemiddeld–hoog: studio + frontend",
+        "letOp": "Zowel de beheeromgeving als de website moeten gebouwd worden. Dat maakt de investering gemiddeld tot hoog."
       },
       "prepr": {
         "score": "geel",
-        "tekst": "Gemiddeld: frontend zelf, starters-kits"
+        "tekst": "Gemiddeld: frontend zelf, starters-kits",
+        "letOp": "De website moet je zelf laten bouwen. Er zijn wel startpakketten die tijd schelen."
       },
       "contentstack": {
         "score": "oranje",
-        "tekst": "Hoog, enterprise-traject"
+        "tekst": "Hoog, enterprise-traject",
+        "letOp": "Implementatie is een enterprise-traject, met bijpassende kosten en doorlooptijd."
       }
     },
     "ecosysteem": {
@@ -738,11 +792,13 @@
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Groeiend, kleiner dan Contentful"
+        "tekst": "Groeiend, kleiner dan Contentful",
+        "letOp": "Het aantal bureaus en developers met Storyblok-ervaring groeit, maar is kleiner dan bij Contentful. Kies een partner met aantoonbare ervaring."
       },
       "drupal": {
         "score": "geel",
-        "tekst": "Volwassen maar krimpend, NL nog sterk"
+        "tekst": "Volwassen maar krimpend, NL nog sterk",
+        "letOp": "Het aantal Drupal-specialisten neemt af. In Nederland is de community nog sterk, maar op langere termijn kan het lastiger worden om mensen te vinden."
       },
       "sanity": {
         "score": "groen",
@@ -750,11 +806,13 @@
       },
       "prepr": {
         "score": "geel",
-        "tekst": "Klein, vooral NL-markt"
+        "tekst": "Klein, vooral NL-markt",
+        "letOp": "Prepr is vooral in Nederland actief. Er zijn minder bureaus en developers met ervaring, dus kies je partner zorgvuldig."
       },
       "contentstack": {
         "score": "geel",
-        "tekst": "Klein buiten enterprise-segment"
+        "tekst": "Klein buiten enterprise-segment",
+        "letOp": "Buiten grote enterprise-organisaties zijn er weinig bureaus en developers met Contentstack-ervaring."
       }
     },
     "lockin": {
@@ -764,15 +822,18 @@
       },
       "webflow": {
         "score": "oranje",
-        "tekst": "Proprietary; design/interacties niet exporteerbaar"
+        "tekst": "Proprietary; design/interacties niet exporteerbaar",
+        "letOp": "Je ontwerp en interacties zijn niet mee te nemen naar een ander platform. Stap je ooit over, dan bouw je de site opnieuw."
       },
       "contentful": {
         "score": "rood",
-        "tekst": "Overname-risico: bundeling in Salesforce-ELA dreigt"
+        "tekst": "Overname-risico: bundeling in Salesforce-ELA dreigt",
+        "letOp": "Door de overname door Salesforce bestaat het risico dat Contentful wordt gebundeld in grotere Salesforce-contracten. Dat kan je onderhandelingspositie en exit-mogelijkheden beperken."
       },
       "storyblok": {
         "score": "geel",
-        "tekst": "Component-model bindt structuur aan platform"
+        "tekst": "Component-model bindt structuur aan platform",
+        "letOp": "Je content is opgebouwd uit Storyblok-componenten. Overstappen betekent die structuur opnieuw opzetten."
       },
       "drupal": {
         "score": "groen",
@@ -784,11 +845,13 @@
       },
       "prepr": {
         "score": "geel",
-        "tekst": "Proprietary"
+        "tekst": "Proprietary",
+        "letOp": "Prepr is een gesloten platform. Overstappen betekent je content en structuur migreren naar een ander systeem."
       },
       "contentstack": {
         "score": "geel",
-        "tekst": "Proprietary, enterprise-contracten"
+        "tekst": "Proprietary, enterprise-contracten",
+        "letOp": "Contentstack is een gesloten platform met enterprise-contracten. Overstappen is daardoor kostbaar."
       }
     }
   }

@@ -204,7 +204,8 @@ function UitslagKaart({ uitslag, positie, tekst }: { uitslag: Uitslag; positie: 
       )}
       {letOp && (
         <p className="letop">
-          <span className="sub">Let op</span> <strong>{letOp.label}</strong> <span className="scheiding">·</span> {letOp.tekst}
+          <span className="sub">Let op · {letOp.label}</span>
+          {letOp.letOp ?? letOp.tekst}
         </p>
       )}
       {sterk.length > 0 && (

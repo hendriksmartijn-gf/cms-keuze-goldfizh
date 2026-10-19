@@ -48,7 +48,19 @@ export const cms = defineType({
           fields: [
             defineField({ name: "criterium", type: "reference", to: [{ type: "criterium" }], validation: (r) => r.required() }),
             defineField({ name: "score", type: "string", options: { list: ["groen", "geel", "oranje", "rood", "info"], layout: "radio", direction: "horizontal" }, validation: (r) => r.required() }),
-            defineField({ name: "tekst", type: "string", validation: (r) => r.required().max(120) }),
+            defineField({ name: "tekst", type: "string", description: "Korte samenvatting voor de vergelijking.", validation: (r) => r.required().max(120) }),
+            defineField({
+              name: "letOp",
+              title: "Let op (gewone taal)",
+              type: "text",
+              rows: 3,
+              description: "Wat betekent dit en wanneer is het een probleem? Getoond als dit het aandachtspunt is.",
+              validation: (r) =>
+                r.max(320).custom((v, ctx) => {
+                  const score = (ctx.parent as { score?: string })?.score;
+                  return !v && score && score !== "groen" && score !== "info" ? "Verplicht bij geel, oranje of rood" : true;
+                }),
+            }),
             defineField({ name: "bron", type: "url", validation: (r) => r.required().warning("Voeg een bron toe") }),
             defineField({
               name: "gecontroleerd",

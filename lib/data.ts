@@ -13,7 +13,7 @@ const GROQ = `{
   "criteria": *[_type == "criterium"] | order(volgorde asc) { "id": slug.current, categorie, label, uitleg, gewicht, inZin },
   "cms": *[_type == "cms"] | order(volgorde asc) {
     "id": slug.current, naam, partner, minPrijs, eigenFrontend, wat, pastBij, _updatedAt,
-    beoordelingen[] { "criterium": criterium->slug.current, score, tekst, bron, gecontroleerd }
+    beoordelingen[] { "criterium": criterium->slug.current, score, tekst, letOp, bron, gecontroleerd }
   }
 }`;
 

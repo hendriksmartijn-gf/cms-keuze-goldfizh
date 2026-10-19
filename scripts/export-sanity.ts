@@ -41,6 +41,7 @@ matrix.cms.forEach((cms, i) => {
           criterium: { _type: "reference", _ref: `criterium-${c.id}` },
           score: cel.score,
           tekst: cel.tekst,
+          ...(cel.letOp ? { letOp: cel.letOp } : {}),
           ...(cel.bron ? { bron: cel.bron } : {}),
           gecontroleerd: cel.gecontroleerd ?? matrix.bijgewerkt,
         };

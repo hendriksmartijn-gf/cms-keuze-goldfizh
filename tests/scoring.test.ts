@@ -29,6 +29,14 @@ test("zonder developers blijven alleen niet-headless, bouwbare opties over", () 
   assert.ok(af.includes("drupal") && af.includes("prepr"));
 });
 
+test("elk zwak punt heeft een let-op-tekst in gewone taal", () => {
+  for (const c of matrix.criteria)
+    for (const cms of matrix.cms) {
+      const cel = matrix.cellen[c.id][cms.id];
+      if (["geel", "oranje", "rood"].includes(cel.score)) assert.ok(cel.letOp && cel.letOp.length > 30, `${c.id}/${cms.id}`);
+    }
+});
+
 test("harde EU-eis sluit VS-leveranciers uit", () => {
   const { top, af } = ids("bcccbc");
   for (const id of ["webflow", "contentful", "sanity", "contentstack"]) assert.ok(af.includes(id), id);
