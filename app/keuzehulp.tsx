@@ -129,7 +129,13 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
 
       <ol className="top">
         {top.map((u, i) => (
-          <UitslagKaart key={u.cms.id} uitslag={u} positie={i + 1} tekst={ai?.[u.cms.id] ?? basis[u.cms.id]} />
+          <UitslagKaart
+            key={u.cms.id}
+            uitslag={u}
+            positie={i + 1}
+            tekst={ai?.[u.cms.id] ?? basis[u.cms.id]}
+            onOpen={() => meld({ naam: "uitklap", params: { cms: u.cms.id, positie: i + 1 } })}
+          />
         ))}
       </ol>
 
@@ -187,38 +193,55 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
   );
 }
 
-function UitslagKaart({ uitslag, positie, tekst }: { uitslag: Uitslag; positie: number; tekst?: string }) {
+function UitslagKaart({
+  uitslag,
+  positie,
+  tekst,
+  onOpen,
+}: {
+  uitslag: Uitslag;
+  positie: number;
+  tekst?: string;
+  onOpen: () => void;
+}) {
   const { cms, match, sterk, letOp } = uitslag;
   return (
     <li className={positie === 1 ? "uitslag eerste" : "uitslag"}>
-      <div className="kop">
-        <span className="positie">{positie}</span>
-        <h3>{cms.naam}</h3>
-        {cms.partner && <span className="badge">Goldfizh-partner</span>}
-        <span className="match">{match}% match</span>
-      </div>
-      {tekst && (
-        <p className="toelichting" key={tekst}>
-          {tekst}
-        </p>
-      )}
-      {letOp && (
-        <p className="letop">
-          <span className="sub">Let op · {letOp.label}</span>
-          {letOp.letOp ?? letOp.tekst}
-        </p>
-      )}
-      {sterk.length > 0 && (
-        <details className="onderbouwing">
-          <summary>Hoe we tot deze score komen</summary>
-          <ul className="redenen">
-            {sterk.map((r) => (
-              <RedenRegel key={r.criterium} reden={r} />
-            ))}
-            {letOp && <RedenRegel reden={letOp} />}
-          </ul>
-        </details>
-      )}
+      <details onToggle={(e) => (e.currentTarget as HTMLDetailsElement).open && onOpen()}>
+        <summary className="kop">
+          <span className="positie">{positie}</span>
+          <span className="naam">
+            <h3>{cms.naam}</h3>
+            {cms.partner && <span className="badge">Goldfizh-partner</span>}
+          </span>
+          <span className="match">{match}%</span>
+          <span className="pijl" aria-hidden="true" />
+        </summary>
+        <div className="inhoud">
+          {tekst && (
+            <p className="toelichting" key={tekst}>
+              {tekst}
+            </p>
+          )}
+          {letOp && (
+            <p className="letop">
+              <span className="sub">Let op · {letOp.label}</span>
+              {letOp.letOp ?? letOp.tekst}
+            </p>
+          )}
+          {sterk.length > 0 && (
+            <details className="onderbouwing">
+              <summary>Hoe we tot deze score komen</summary>
+              <ul className="redenen">
+                {sterk.map((r) => (
+                  <RedenRegel key={r.criterium} reden={r} />
+                ))}
+                {letOp && <RedenRegel reden={letOp} />}
+              </ul>
+            </details>
+          )}
+        </div>
+      </details>
     </li>
   );
 }
