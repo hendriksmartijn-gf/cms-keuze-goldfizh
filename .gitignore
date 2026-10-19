@@ -1,0 +1,7 @@
+node_modules
+.next
+.env*
+!.env.example
+sanity-seed.ndjson
+*.tsbuildinfo
+next-env.d.ts

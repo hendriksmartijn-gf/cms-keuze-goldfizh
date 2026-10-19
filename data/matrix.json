@@ -1,0 +1,204 @@
+{
+  "bijgewerkt": "2026-10-19",
+  "cms": [
+    { "id": "wordpress", "naam": "WordPress", "partner": false, "minPrijs": 0, "eigenFrontend": false },
+    { "id": "webflow", "naam": "Webflow", "partner": true, "minPrijs": 30, "eigenFrontend": false },
+    { "id": "contentful", "naam": "Contentful", "partner": false, "minPrijs": 0, "eigenFrontend": true },
+    { "id": "storyblok", "naam": "Storyblok", "partner": false, "minPrijs": 100, "eigenFrontend": true },
+    { "id": "drupal", "naam": "Drupal", "partner": false, "minPrijs": 0, "eigenFrontend": false },
+    { "id": "sanity", "naam": "Sanity", "partner": true, "minPrijs": 0, "eigenFrontend": true },
+    { "id": "prepr", "naam": "Prepr", "partner": true, "minPrijs": 300, "eigenFrontend": true },
+    { "id": "contentstack", "naam": "Contentstack", "partner": false, "minPrijs": 995, "eigenFrontend": true }
+  ],
+  "criteria": [
+    { "id": "gebruiksgemak", "categorie": "Redactie", "label": "Gebruiksgemak", "uitleg": "Leercurve voor redacteuren", "gewicht": 1 },
+    { "id": "contentbeheer", "categorie": "Redactie", "label": "Contentbeheer", "uitleg": "Contentmodellering, media, meertaligheid", "gewicht": 1 },
+    { "id": "workflow", "categorie": "Redactie", "label": "Workflow & versionering", "uitleg": "Concept → review → publicatie → rollback", "gewicht": 1 },
+    { "id": "rollen", "categorie": "Redactie", "label": "Rollen & rechten", "uitleg": "Granulariteit, SSO, audit", "gewicht": 1 },
+    { "id": "architectuur", "categorie": "Techniek", "label": "Architectuur", "uitleg": "Monoliet, SaaS of headless", "gewicht": 0 },
+    { "id": "dx", "categorie": "Techniek", "label": "Developer experience", "uitleg": "API's, docs, snelheid van bouwen", "gewicht": 1 },
+    { "id": "otap", "categorie": "Techniek", "label": "OTAP", "uitleg": "Gescheiden omgevingen: dev / test / acceptatie / productie", "gewicht": 1 },
+    { "id": "hosting", "categorie": "Soevereiniteit", "label": "Hosting-locatie", "uitleg": "Waar staat de data fysiek", "gewicht": 1 },
+    { "id": "jurisdictie", "categorie": "Soevereiniteit", "label": "Jurisdictie leverancier", "uitleg": "Welk recht valt de leverancier onder (CLOUD Act)", "gewicht": 1 },
+    { "id": "aiBeheer", "categorie": "AI", "label": "AI-beheer (MCP)", "uitleg": "Kunnen agents content beheren", "gewicht": 1 },
+    { "id": "aiVindbaarheid", "categorie": "AI", "label": "AI-vindbaarheid (GEO)", "uitleg": "Kunnen AI-crawlers content lezen en citeren", "gewicht": 1 },
+    { "id": "personalisatie", "categorie": "Marketing", "label": "Personalisatie", "uitleg": "Native segmentatie, A/B, targeting", "gewicht": 1 },
+    { "id": "meetbaarheid", "categorie": "Marketing", "label": "Meetbaarheid", "uitleg": "Native analytics en experiment-data", "gewicht": 1 },
+    { "id": "licentie", "categorie": "Kosten & risico", "label": "Licentiekosten", "uitleg": "Per maand indicatief, excl. hosting", "gewicht": 1 },
+    { "id": "implementatie", "categorie": "Kosten & risico", "label": "Implementatie", "uitleg": "Kosten dev-uren tot livegang", "gewicht": 1 },
+    { "id": "ecosysteem", "categorie": "Kosten & risico", "label": "Ecosysteem / talent", "uitleg": "Devs, partners, continuïteit", "gewicht": 1 },
+    { "id": "lockin", "categorie": "Kosten & risico", "label": "Vendor lock-in", "uitleg": "Exit-kosten, data-portabiliteit", "gewicht": 1 }
+  ],
+  "cellen": {
+    "gebruiksgemak": {
+      "wordpress": { "score": "groen", "tekst": "Bekend bij vrijwel iedereen" },
+      "webflow": { "score": "groen", "tekst": "Visueel, intuïtief" },
+      "contentful": { "score": "geel", "tekst": "Abstract, went na training" },
+      "storyblok": { "score": "groen", "tekst": "Visuele editor, snelst productief" },
+      "drupal": { "score": "geel", "tekst": "Stevige leercurve, beter met Gin/Claro" },
+      "sanity": { "score": "geel", "tekst": "Krachtig, maar lange inwerktijd" },
+      "prepr": { "score": "groen", "tekst": "Toegankelijk, NL support" },
+      "contentstack": { "score": "geel", "tekst": "Enterprise-UI, training nodig" }
+    },
+    "contentbeheer": {
+      "wordpress": { "score": "oranje", "tekst": "Zwak native model, plugin-afhankelijk" },
+      "webflow": { "score": "geel", "tekst": "Collections beperkt, localization betaald" },
+      "contentful": { "score": "groen", "tekst": "Volwassen, structured content" },
+      "storyblok": { "score": "groen", "tekst": "Component-model, sterk meertalig" },
+      "drupal": { "score": "groen", "tekst": "Zeer flexibel entiteitsmodel" },
+      "sanity": { "score": "groen", "tekst": "Best-in-class modellering (schema-as-code)" },
+      "prepr": { "score": "groen", "tekst": "Flexibele modellen, remote sources" },
+      "contentstack": { "score": "groen", "tekst": "Enterprise-grade, modulair" }
+    },
+    "workflow": {
+      "wordpress": { "score": "oranje", "tekst": "Alleen revisies, rest via plugins" },
+      "webflow": { "score": "geel", "tekst": "Page branching, workflows op Enterprise" },
+      "contentful": { "score": "groen", "tekst": "Workflows-app, versiehistorie" },
+      "storyblok": { "score": "groen", "tekst": "Workflows + versioning native" },
+      "drupal": { "score": "groen", "tekst": "Content moderation in core" },
+      "sanity": { "score": "groen", "tekst": "Real-time, Content Releases, historie" },
+      "prepr": { "score": "groen", "tekst": "Workflow-statussen native" },
+      "contentstack": { "score": "groen", "tekst": "Enterprise workflows, audit trail" }
+    },
+    "rollen": {
+      "wordpress": { "score": "geel", "tekst": "Basisrollen, uitbreiden via plugins" },
+      "webflow": { "score": "geel", "tekst": "Per site/collectie; custom roles op Enterprise" },
+      "contentful": { "score": "groen", "tekst": "Granulaire RBAC (hogere tiers)" },
+      "storyblok": { "score": "groen", "tekst": "Advanced RBAC, SSO, audit logs" },
+      "drupal": { "score": "groen", "tekst": "Fijnmazigste permissies native" },
+      "sanity": { "score": "geel", "tekst": "Custom roles vanaf Growth" },
+      "prepr": { "score": "groen", "tekst": "Advanced RBAC, SSO, audit logs" },
+      "contentstack": { "score": "groen", "tekst": "Sterkste enterprise governance" }
+    },
+    "architectuur": {
+      "wordpress": { "score": "info", "tekst": "Monoliet, headless mogelijk" },
+      "webflow": { "score": "info", "tekst": "SaaS, gekoppelde front-end (statisch)" },
+      "contentful": { "score": "info", "tekst": "Headless SaaS" },
+      "storyblok": { "score": "info", "tekst": "Headless SaaS + visuele editor" },
+      "drupal": { "score": "info", "tekst": "Monoliet, headless mogelijk" },
+      "sanity": { "score": "info", "tekst": "Headless SaaS, schema-as-code" },
+      "prepr": { "score": "info", "tekst": "Headless SaaS" },
+      "contentstack": { "score": "info", "tekst": "Headless SaaS" }
+    },
+    "dx": {
+      "wordpress": { "score": "geel", "tekst": "Bekend, maar legacy-PHP" },
+      "webflow": { "score": "groen", "tekst": "Laagdrempelig, sterke docs + llms.txt" },
+      "contentful": { "score": "groen", "tekst": "Volwassen API's, groot app-ecosysteem" },
+      "storyblok": { "score": "geel", "tekst": "Goede API's, js-bridge vereist voor preview" },
+      "drupal": { "score": "oranje", "tekst": "Specialist nodig, steile curve" },
+      "sanity": { "score": "groen", "tekst": "Developer-first: GROQ, TypeGen, wekelijkse releases" },
+      "prepr": { "score": "groen", "tekst": "Goede docs, Next.js-pakket, schema sync via Git" },
+      "contentstack": { "score": "geel", "tekst": "Krachtig maar complex, specialist nodig" }
+    },
+    "otap": {
+      "wordpress": { "score": "oranje", "tekst": "Zelf bouwen via hosting-staging" },
+      "webflow": { "score": "oranje", "tekst": "Staging-domein + branching, geen echte multi-env" },
+      "contentful": { "score": "groen", "tekst": "Environments native (gelimiteerd per tier)" },
+      "storyblok": { "score": "geel", "tekst": "Pipelines als add-on op hogere plannen" },
+      "drupal": { "score": "groen", "tekst": "Config management, OTAP-straat is standaardpraktijk" },
+      "sanity": { "score": "groen", "tekst": "Datasets + schema in Git = OTAP via code" },
+      "prepr": { "score": "groen", "tekst": "DTAP native, expliciete stage-instelling per environment" },
+      "contentstack": { "score": "oranje", "tekst": "Environments + branches native" }
+    },
+    "hosting": {
+      "wordpress": { "score": "groen", "tekst": "Zelf te kiezen (bijv. NL-host)" },
+      "webflow": { "score": "oranje", "tekst": "VS (AWS/Fastly, globale CDN), EU optioneel" },
+      "contentful": { "score": "geel", "tekst": "VS standaard, EU optioneel" },
+      "storyblok": { "score": "groen", "tekst": "Keuze, EU = AWS Frankfurt" },
+      "drupal": { "score": "groen", "tekst": "Zelf te kiezen (bijv. NL-host)" },
+      "sanity": { "score": "groen", "tekst": "GCP België (europe-west1), niet zelf te kiezen" },
+      "prepr": { "score": "groen", "tekst": "EU-NL" },
+      "contentstack": { "score": "oranje", "tekst": "VS standaard" }
+    },
+    "jurisdictie": {
+      "wordpress": { "score": "groen", "tekst": "N.v.t., jij bent de exploitant (bij self-hosting)" },
+      "webflow": { "score": "oranje", "tekst": "VS" },
+      "contentful": { "score": "rood", "tekst": "Was DE → wordt VS (Salesforce, closing verwacht Q3 FY2027)" },
+      "storyblok": { "score": "groen", "tekst": "EU (Oostenrijk, Linz)" },
+      "drupal": { "score": "groen", "tekst": "N.v.t., jij bent de exploitant (bij self-hosting)" },
+      "sanity": { "score": "oranje", "tekst": "VS (Palo Alto), ondanks EU-data" },
+      "prepr": { "score": "groen", "tekst": "NL (Utrecht)" },
+      "contentstack": { "score": "oranje", "tekst": "VS (San Francisco)" }
+    },
+    "aiBeheer": {
+      "wordpress": { "score": "oranje", "tekst": "Geen officiële MCP, community-experimenten" },
+      "webflow": { "score": "groen", "tekst": "MCP 2.0: governance, rollen, audit-log, agent instructions" },
+      "contentful": { "score": "groen", "tekst": "Officiële MCP; koers richting Agentforce" },
+      "storyblok": { "score": "groen", "tekst": "Officiële MCP + FlowMotion-automatisering" },
+      "drupal": { "score": "geel", "tekst": "Community-modules; Acquia-agents commercieel" },
+      "sanity": { "score": "groen", "tekst": "MCP + Agent Context; sterkste structured-content-voor-AI" },
+      "prepr": { "score": "groen", "tekst": "MCP-server GA, agents t/m publicatie" },
+      "contentstack": { "score": "geel", "tekst": "AI-automations aanwezig, MCP minder prominent" }
+    },
+    "aiVindbaarheid": {
+      "wordpress": { "score": "groen", "tekst": "SSR native, schema via plugins" },
+      "webflow": { "score": "groen", "tekst": "Statisch/SSR + AEO-product (beta)" },
+      "contentful": { "score": "geel", "tekst": "Hangt af van frontend (SSR vereist)" },
+      "storyblok": { "score": "geel", "tekst": "Hangt af van frontend (SSR vereist)" },
+      "drupal": { "score": "groen", "tekst": "SSR native, schema-modules" },
+      "sanity": { "score": "geel", "tekst": "Hangt af van frontend (SSR vereist)" },
+      "prepr": { "score": "geel", "tekst": "Hangt af van frontend (SSR vereist)" },
+      "contentstack": { "score": "geel", "tekst": "Hangt af van frontend (SSR vereist)" }
+    },
+    "personalisatie": {
+      "wordpress": { "score": "oranje", "tekst": "Alleen via plugins" },
+      "webflow": { "score": "groen", "tekst": "Webflow Optimize (A/B + personalisatie)" },
+      "contentful": { "score": "groen", "tekst": "Native (Ninetailed-overname)" },
+      "storyblok": { "score": "oranje", "tekst": "Niet native, externe tooling nodig" },
+      "drupal": { "score": "geel", "tekst": "Modules / Acquia Personalization" },
+      "sanity": { "score": "oranje", "tekst": "Geen native personalisatie of testing" },
+      "prepr": { "score": "groen", "tekst": "Kern-USP: personalisatie + A/B native" },
+      "contentstack": { "score": "groen", "tekst": "Contentstack Personalize native" }
+    },
+    "meetbaarheid": {
+      "wordpress": { "score": "geel", "tekst": "Extern (GA4 e.d.)" },
+      "webflow": { "score": "groen", "tekst": "Webflow Analyze native" },
+      "contentful": { "score": "geel", "tekst": "Extern" },
+      "storyblok": { "score": "geel", "tekst": "Extern" },
+      "drupal": { "score": "geel", "tekst": "Extern" },
+      "sanity": { "score": "geel", "tekst": "Insights beperkt, extern nodig" },
+      "prepr": { "score": "groen", "tekst": "A/B- en segmentdata ingebouwd" },
+      "contentstack": { "score": "groen", "tekst": "Lytics CDP geïntegreerd" }
+    },
+    "licentie": {
+      "wordpress": { "score": "groen", "tekst": "€0 (open source)" },
+      "webflow": { "score": "groen", "tekst": "€30 – €100 (site plan)" },
+      "contentful": { "score": "geel", "tekst": "€0 – ±€300 Lite; werkelijk vaak 40–60% hoger door limieten" },
+      "storyblok": { "score": "geel", "tekst": "±€100 – €350; Enterprise custom" },
+      "drupal": { "score": "groen", "tekst": "€0 (open source)" },
+      "sanity": { "score": "geel", "tekst": "€0 – ±€15 p/ gebruiker; Enterprise custom" },
+      "prepr": { "score": "geel", "tekst": "±€300 – €500" },
+      "contentstack": { "score": "rood", "tekst": "Vanaf ±€995, enterprise-only" }
+    },
+    "implementatie": {
+      "wordpress": { "score": "groen", "tekst": "Laag, templates + plugins" },
+      "webflow": { "score": "groen", "tekst": "Laag, geen aparte frontend nodig" },
+      "contentful": { "score": "oranje", "tekst": "Hoog: frontend volledig zelf bouwen" },
+      "storyblok": { "score": "geel", "tekst": "Gemiddeld: frontend zelf, editor helpt" },
+      "drupal": { "score": "rood", "tekst": "Hoog: specialistisch bouwtraject" },
+      "sanity": { "score": "geel", "tekst": "Gemiddeld–hoog: studio + frontend" },
+      "prepr": { "score": "geel", "tekst": "Gemiddeld: frontend zelf, starters-kits" },
+      "contentstack": { "score": "oranje", "tekst": "Hoog, enterprise-traject" }
+    },
+    "ecosysteem": {
+      "wordpress": { "score": "groen", "tekst": "Grootste ecosysteem ter wereld" },
+      "webflow": { "score": "groen", "tekst": "Groot, groeiend, veel freelancers" },
+      "contentful": { "score": "groen", "tekst": "Groot enterprise-ecosysteem" },
+      "storyblok": { "score": "geel", "tekst": "Groeiend, kleiner dan Contentful" },
+      "drupal": { "score": "geel", "tekst": "Volwassen maar krimpend, NL nog sterk" },
+      "sanity": { "score": "groen", "tekst": "Sterke dev-community, minder bureaus" },
+      "prepr": { "score": "geel", "tekst": "Klein, vooral NL-markt" },
+      "contentstack": { "score": "geel", "tekst": "Klein buiten enterprise-segment" }
+    },
+    "lockin": {
+      "wordpress": { "score": "groen", "tekst": "Data en code van jou" },
+      "webflow": { "score": "oranje", "tekst": "Proprietary; design/interacties niet exporteerbaar" },
+      "contentful": { "score": "rood", "tekst": "Overname-risico: bundeling in Salesforce-ELA dreigt" },
+      "storyblok": { "score": "geel", "tekst": "Component-model bindt structuur aan platform" },
+      "drupal": { "score": "groen", "tekst": "Data en code van jou" },
+      "sanity": { "score": "groen", "tekst": "Export goed, GROQ/Portable Text proprietary" },
+      "prepr": { "score": "geel", "tekst": "Proprietary" },
+      "contentstack": { "score": "geel", "tekst": "Proprietary, enterprise-contracten" }
+    }
+  }
+}
