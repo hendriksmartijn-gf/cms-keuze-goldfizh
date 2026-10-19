@@ -30,6 +30,8 @@ export interface Uitslag {
   match: number;
   sterk: Reden[];
   letOp: Reden | null;
+  /** Per meewegend criterium: punten (-1..2) en jouw gewicht. Basis voor vergelijkingen. */
+  scores: Record<string, { punten: number; gewicht: number }>;
 }
 
 export interface Afgevallen {
@@ -111,6 +113,7 @@ export function bereken(matrix: Matrix, vragen: Vraag[], keuzes: number[]): Resu
       match: maximum ? Math.max(0, Math.round((100 * behaald) / maximum)) : 0,
       sterk: sterk.map(stripIntern),
       letOp: letOp ? stripIntern(letOp) : null,
+      scores: Object.fromEntries(bijdragen.map((b) => [b.criterium, { punten: b.punten, gewicht: b.gewicht }])),
     });
   }
 

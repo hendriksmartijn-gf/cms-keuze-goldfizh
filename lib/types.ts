@@ -9,6 +9,10 @@ export interface Cms {
   minPrijs: number;
   /** Vraagt een eigen (headless) frontend, dus developers. */
   eigenFrontend: boolean;
+  /** Eén zin: wat is het. Alleen claims die ook in de matrix staan. */
+  wat: string;
+  /** Vervolg op "… past bij": voor welk type organisatie. */
+  pastBij: string;
 }
 
 export interface Criterium {
@@ -18,6 +22,8 @@ export interface Criterium {
   uitleg: string;
   /** Basisgewicht. 0 = alleen informatief (bijv. architectuur). */
   gewicht: number;
+  /** Hoe het criterium in een lopende zin heet, bijv. "personalisatie en A/B-testen". */
+  inZin: string;
 }
 
 export interface Cel {

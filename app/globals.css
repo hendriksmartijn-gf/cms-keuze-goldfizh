@@ -79,8 +79,15 @@ legend { padding: 0; }
 .reden.oranje { border-color: var(--oranje); }
 .reden.rood { border-color: var(--rood); }
 .omdat { display: block; color: var(--kleur-zacht); font-size: .85rem; line-height: 1.5; margin-top: 2px; }
-.letop { background: var(--kleur-letop); padding: 14px 16px; }
-.letop .reden { margin: 0; }
+.toelichting { font-size: 1.0625rem; line-height: 1.7; margin: 0 0 16px; max-width: 62ch; animation: verschijn .4s var(--ease); }
+@keyframes verschijn { from { opacity: .35; } to { opacity: 1; } }
+.letop { background: var(--kleur-letop); padding: 12px 16px; margin: 0 0 12px; font-size: .95rem; }
+.letop .sub { display: inline; margin-right: 6px; }
+.letop .scheiding { color: var(--kleur-zacht); margin: 0 4px; }
+.onderbouwing summary { cursor: pointer; font-size: .9rem; font-weight: 500; color: var(--kleur-zacht); }
+.onderbouwing summary:hover { color: var(--kleur-accent); }
+.onderbouwing summary:focus-visible { outline: 2.5px dashed var(--kleur-focus); outline-offset: 2px; }
+.onderbouwing .redenen { margin-top: 12px; }
 
 /* Formulier zoals op goldfizh.nl: paars vlak, witte tekst, paarse velden. */
 .lead { background: var(--kleur-accent); color: var(--kleur-op-accent); padding: clamp(24px, 5vw, 48px); margin-bottom: 24px; }

@@ -13,6 +13,7 @@ matrix.criteria.forEach((c, i) => {
     slug: { _type: "slug", current: c.id },
     categorie: c.categorie,
     uitleg: c.uitleg,
+    inZin: c.inZin,
     gewicht: c.gewicht,
     volgorde: i,
   });
@@ -27,6 +28,8 @@ matrix.cms.forEach((cms, i) => {
     partner: cms.partner,
     minPrijs: cms.minPrijs,
     eigenFrontend: cms.eigenFrontend,
+    wat: cms.wat,
+    pastBij: cms.pastBij,
     volgorde: i,
     beoordelingen: matrix.criteria
       .filter((c) => matrix.cellen[c.id]?.[cms.id])

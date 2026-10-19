@@ -10,9 +10,9 @@ import type { Cel, Matrix } from "./types.ts";
 export const MATRIX_TAG = "matrix";
 
 const GROQ = `{
-  "criteria": *[_type == "criterium"] | order(volgorde asc) { "id": slug.current, categorie, label, uitleg, gewicht },
+  "criteria": *[_type == "criterium"] | order(volgorde asc) { "id": slug.current, categorie, label, uitleg, gewicht, inZin },
   "cms": *[_type == "cms"] | order(volgorde asc) {
-    "id": slug.current, naam, partner, minPrijs, eigenFrontend, _updatedAt,
+    "id": slug.current, naam, partner, minPrijs, eigenFrontend, wat, pastBij, _updatedAt,
     beoordelingen[] { "criterium": criterium->slug.current, score, tekst, bron, gecontroleerd }
   }
 }`;
@@ -23,6 +23,8 @@ interface SanityCms {
   partner: boolean;
   minPrijs: number;
   eigenFrontend: boolean;
+  wat: string;
+  pastBij: string;
   _updatedAt: string;
   beoordelingen?: (Cel & { criterium: string })[];
 }
@@ -52,12 +54,14 @@ export async function getMatrix(): Promise<Matrix> {
     return {
       bijgewerkt,
       criteria: result.criteria,
-      cms: result.cms.map(({ id, naam, partner, minPrijs, eigenFrontend }) => ({
+      cms: result.cms.map(({ id, naam, partner, minPrijs, eigenFrontend, wat, pastBij }) => ({
         id,
         naam,
         partner: !!partner,
         minPrijs: minPrijs ?? 0,
         eigenFrontend: !!eigenFrontend,
+        wat: wat ?? "",
+        pastBij: pastBij ?? "",
       })),
       cellen,
     };

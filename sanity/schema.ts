@@ -18,6 +18,7 @@ export const criterium = defineType({
     defineField({ name: "slug", type: "slug", options: { source: "label" }, validation: (r) => r.required(), readOnly: ({ document }) => !!document?._createdAt, description: "Wordt gebruikt in de scoring-code. Niet wijzigen." }),
     defineField({ name: "categorie", type: "string", options: { list: ["Redactie", "Techniek", "Soevereiniteit", "AI", "Marketing", "Kosten & risico"] }, validation: (r) => r.required() }),
     defineField({ name: "uitleg", type: "string" }),
+    defineField({ name: "inZin", title: "In een lopende zin", type: "string", description: 'Bijv. "personalisatie en A/B-testen". Gebruikt in de toelichting.', validation: (r) => r.required() }),
     defineField({ name: "gewicht", type: "number", initialValue: 1, description: "Basisgewicht. 0 = alleen informatief.", validation: (r) => r.required().min(0).max(5) }),
     defineField({ name: "volgorde", type: "number" }),
   ],
@@ -34,6 +35,8 @@ export const cms = defineType({
     defineField({ name: "partner", title: "Goldfizh-partner", type: "boolean", initialValue: false, description: "Alleen voor openbaarmaking; telt niet mee in de score." }),
     defineField({ name: "minPrijs", title: "Minimale licentieprijs p/m (€)", type: "number", validation: (r) => r.required().min(0) }),
     defineField({ name: "eigenFrontend", title: "Vraagt eigen frontend (headless)", type: "boolean", initialValue: false }),
+    defineField({ name: "wat", title: "Wat is het (één zin)", type: "text", rows: 2, description: "Alleen claims die ook in de beoordelingen staan.", validation: (r) => r.required().max(200) }),
+    defineField({ name: "pastBij", title: "Past bij … (vervolg van de zin)", type: "text", rows: 3, description: 'Begint klein, bijv. "organisaties die …".', validation: (r) => r.required().max(300) }),
     defineField({ name: "volgorde", type: "number" }),
     defineField({
       name: "beoordelingen",

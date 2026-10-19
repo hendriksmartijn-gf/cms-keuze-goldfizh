@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { bereken, naarCode, type Reden, type Uitslag } from "@/lib/scoring.ts";
+import { basisToelichting, type Toelichtingen } from "@/lib/toelichting.ts";
 import type { Matrix, Vraag } from "@/lib/types.ts";
 
 interface Props {
@@ -22,6 +23,9 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
   const klaar = stap >= vragen.length;
   const code = klaar ? naarCode(keuzes) : null;
   const resultaat = useMemo(() => (klaar ? bereken(matrix, vragen, keuzes) : null), [klaar, matrix, vragen, keuzes]);
+  const basis = useMemo(() => (resultaat ? basisToelichting(resultaat.ranking.slice(0, 3), matrix) : {}), [resultaat, matrix]);
+  // Gegenereerde toelichting vervangt de basistekst zodra die er is; mislukt het, dan blijft de basis staan.
+  const [gegenereerd, setGegenereerd] = useState<{ code: string; teksten: Toelichtingen } | null>(null);
 
   // Events gaan naar de parent (Webflow → GTM/dataLayer). Nooit persoonsgegevens meesturen.
   const meld = (e: Event) => {
@@ -39,6 +43,16 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
     post();
     return () => ro.disconnect();
   }, [parentOrigin]);
+
+  useEffect(() => {
+    if (!code) return;
+    const ctrl = new AbortController();
+    fetch(`/api/toelichting?keuze=${code}`, { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d?.toelichtingen && setGegenereerd({ code, teksten: d.toelichtingen }))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, [code]);
 
   useEffect(() => {
     if (!resultaat || !code) return;
@@ -97,6 +111,7 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
   }
 
   const { ranking, afgevallen } = resultaat!;
+  const ai = gegenereerd?.code === code ? gegenereerd.teksten : null;
   const top = ranking.slice(0, 3);
   const rest = ranking.slice(3);
   const deelLink = `${parentUrl ? parentUrl.split("?")[0] : typeof window !== "undefined" ? window.location.origin + window.location.pathname : ""}?keuze=${code}`;
@@ -114,7 +129,7 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
 
       <ol className="top">
         {top.map((u, i) => (
-          <UitslagKaart key={u.cms.id} uitslag={u} positie={i + 1} />
+          <UitslagKaart key={u.cms.id} uitslag={u} positie={i + 1} tekst={ai?.[u.cms.id] ?? basis[u.cms.id]} />
         ))}
       </ol>
 
@@ -166,12 +181,13 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
       <p className="disclaimer">
         Goldfizh is partner van Webflow, Sanity en Prepr. Partnerschap telt niet mee in de score: elk CMS wordt op dezelfde
         criteria beoordeeld. Dit is een eerste richting, geen definitief advies; prijzen en voorwaarden veranderen.
+        {ai && " De toelichting per CMS is met AI geschreven op basis van onze vergelijking."}
       </p>
     </section>
   );
 }
 
-function UitslagKaart({ uitslag, positie }: { uitslag: Uitslag; positie: number }) {
+function UitslagKaart({ uitslag, positie, tekst }: { uitslag: Uitslag; positie: number; tekst?: string }) {
   const { cms, match, sterk, letOp } = uitslag;
   return (
     <li className={positie === 1 ? "uitslag eerste" : "uitslag"}>
@@ -181,21 +197,26 @@ function UitslagKaart({ uitslag, positie }: { uitslag: Uitslag; positie: number 
         {cms.partner && <span className="badge">Goldfizh-partner</span>}
         <span className="match">{match}% match</span>
       </div>
+      {tekst && (
+        <p className="toelichting" key={tekst}>
+          {tekst}
+        </p>
+      )}
+      {letOp && (
+        <p className="letop">
+          <span className="sub">Let op</span> <strong>{letOp.label}</strong> <span className="scheiding">·</span> {letOp.tekst}
+        </p>
+      )}
       {sterk.length > 0 && (
-        <>
-          <p className="sub">Waarom het past</p>
+        <details className="onderbouwing">
+          <summary>Hoe we tot deze score komen</summary>
           <ul className="redenen">
             {sterk.map((r) => (
               <RedenRegel key={r.criterium} reden={r} />
             ))}
+            {letOp && <RedenRegel reden={letOp} />}
           </ul>
-        </>
-      )}
-      {letOp && (
-        <div className="letop">
-          <p className="sub">Let op</p>
-          <RedenRegel reden={letOp} />
-        </div>
+        </details>
       )}
     </li>
   );
@@ -205,7 +226,7 @@ function RedenRegel({ reden }: { reden: Reden }) {
   return (
     <li className={`reden ${reden.score}`}>
       <strong>{reden.label}:</strong> {reden.tekst}
-      {reden.omdat && <span className="omdat">Belangrijk omdat je koos: “{reden.omdat}”</span>}
+      {reden.omdat && <span className="omdat">Weegt zwaar door je antwoord “{reden.omdat}”</span>}
     </li>
   );
 }
