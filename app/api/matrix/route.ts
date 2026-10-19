@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getMatrix } from "@/lib/data.ts";
+import { partners } from "@/lib/toelichting.ts";
 import { vragen } from "@/lib/vragen.ts";
 
 /**
@@ -13,7 +14,7 @@ export async function GET() {
       titel: "CMS-vergelijking Goldfizh",
       uitgever: "Goldfizh, Utrecht",
       scoring: "groen = 2, geel = 1, oranje = 0, rood = -1; gewicht per criterium hangt af van de antwoorden.",
-      openbaarmaking: "Goldfizh is partner van Webflow, Sanity en Prepr. Partnerschap telt niet mee in de score.",
+      openbaarmaking: `Goldfizh is partner van ${partners(matrix)}. Partnerschap telt niet mee in de score.`,
       ...matrix,
       vragen,
     },

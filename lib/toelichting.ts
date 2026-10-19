@@ -9,6 +9,11 @@ import type { Matrix, Vraag } from "./types.ts";
 
 export type Toelichtingen = Record<string, string>;
 
+/** "Webflow, Sanity en Prepr", uit het partnerveld in de matrix. */
+export function partners(matrix: Matrix): string {
+  return opsomming(matrix.cms.filter((c) => c.partner).map((c) => c.naam));
+}
+
 const MAX_PUNTEN = 3;
 
 function opsomming(delen: string[]): string {

@@ -1,72 +1,66 @@
 import "server-only";
 import lokaal from "../data/matrix.json";
-import type { Cel, Matrix } from "./types.ts";
+import type { Matrix } from "./types.ts";
+import { blokkerendeFouten, naarMatrix, type WebflowCollectie, type WebflowItem, type WebflowVeld } from "./webflow.ts";
 
 /**
- * Bron van de matrix. Met SANITY_PROJECT_ID gezet komt de data uit Sanity
- * (gecachet, ververst via /api/revalidate); anders uit data/matrix.json.
- * Valt Sanity om, dan tonen we de lokale versie in plaats van een kapotte widget.
+ * Bron van de matrix. Met WEBFLOW_API_TOKEN en de drie collectie-ID's gezet komt de data
+ * uit Webflow CMS (alleen gepubliceerde items, gecachet, ververst via /api/revalidate);
+ * anders uit data/matrix.json. Is Webflow onbereikbaar of de data onvolledig, dan tonen
+ * we de lokale versie in plaats van een kapotte widget.
  */
 export const MATRIX_TAG = "matrix";
 
-const GROQ = `{
-  "criteria": *[_type == "criterium"] | order(volgorde asc) { "id": slug.current, categorie, label, uitleg, gewicht, inZin },
-  "cms": *[_type == "cms"] | order(volgorde asc) {
-    "id": slug.current, naam, partner, minPrijs, eigenFrontend, wat, pastBij, _updatedAt,
-    beoordelingen[] { "criterium": criterium->slug.current, score, tekst, letOp, bron, gecontroleerd }
-  }
-}`;
+const API = process.env.WEBFLOW_API_BASE ?? "https://api.webflow.com/v2";
+const CACHE: RequestInit = { next: { tags: [MATRIX_TAG], revalidate: 86400 } };
 
-interface SanityCms {
-  id: string;
-  naam: string;
-  partner: boolean;
-  minPrijs: number;
-  eigenFrontend: boolean;
-  wat: string;
-  pastBij: string;
-  _updatedAt: string;
-  beoordelingen?: (Cel & { criterium: string })[];
+function config() {
+  const token = process.env.WEBFLOW_API_TOKEN;
+  const ids = {
+    criteria: process.env.WEBFLOW_COLLECTIE_CRITERIA,
+    cms: process.env.WEBFLOW_COLLECTIE_CMS,
+    beoordelingen: process.env.WEBFLOW_COLLECTIE_BEOORDELINGEN,
+  };
+  if (!token || !ids.criteria || !ids.cms || !ids.beoordelingen) return null;
+  return { token, ids: ids as Record<keyof typeof ids, string> };
+}
+
+async function haal<T>(pad: string, token: string): Promise<T> {
+  const res = await fetch(`${API}${pad}`, { headers: { Authorization: `Bearer ${token}`, accept: "application/json" }, ...CACHE });
+  if (!res.ok) throw new Error(`Webflow ${res.status} op ${pad}`);
+  return res.json() as Promise<T>;
+}
+
+async function collectie(id: string, token: string): Promise<WebflowCollectie> {
+  const { fields } = await haal<{ fields: WebflowVeld[] }>(`/collections/${id}`, token);
+  const items: WebflowItem[] = [];
+  for (let offset = 0; ; offset += 100) {
+    const pagina = await haal<{ items: WebflowItem[]; pagination: { total: number } }>(
+      `/collections/${id}/items/live?limit=100&offset=${offset}`,
+      token,
+    );
+    items.push(...pagina.items);
+    if (items.length >= pagina.pagination.total || !pagina.items.length) break;
+  }
+  return { fields, items };
 }
 
 export async function getMatrix(): Promise<Matrix> {
-  const projectId = process.env.SANITY_PROJECT_ID;
-  if (!projectId) return lokaal as Matrix;
-
-  const dataset = process.env.SANITY_DATASET ?? "production";
-  const url = `https://${projectId}.apicdn.sanity.io/v2025-02-19/data/query/${dataset}?query=${encodeURIComponent(GROQ)}`;
+  const cfg = config();
+  if (!cfg) return lokaal as Matrix;
 
   try {
-    const res = await fetch(url, { next: { tags: [MATRIX_TAG], revalidate: 86400 } });
-    if (!res.ok) throw new Error(`Sanity ${res.status}`);
-    const { result } = (await res.json()) as {
-      result: { criteria: Matrix["criteria"]; cms: SanityCms[] };
-    };
-
-    const cellen: Matrix["cellen"] = {};
-    for (const cms of result.cms) {
-      for (const { criterium, ...cel } of cms.beoordelingen ?? []) {
-        (cellen[criterium] ??= {})[cms.id] = cel;
-      }
-    }
-    const bijgewerkt = result.cms.map((c) => c._updatedAt.slice(0, 10)).sort().at(-1) ?? lokaal.bijgewerkt;
-
-    return {
-      bijgewerkt,
-      criteria: result.criteria,
-      cms: result.cms.map(({ id, naam, partner, minPrijs, eigenFrontend, wat, pastBij }) => ({
-        id,
-        naam,
-        partner: !!partner,
-        minPrijs: minPrijs ?? 0,
-        eigenFrontend: !!eigenFrontend,
-        wat: wat ?? "",
-        pastBij: pastBij ?? "",
-      })),
-      cellen,
-    };
+    const [criteria, cms, beoordelingen] = await Promise.all([
+      collectie(cfg.ids.criteria, cfg.token),
+      collectie(cfg.ids.cms, cfg.token),
+      collectie(cfg.ids.beoordelingen, cfg.token),
+    ]);
+    const matrix = naarMatrix({ criteria, cms, beoordelingen });
+    const fouten = blokkerendeFouten(matrix);
+    if (fouten.length) throw new Error(`Matrix onvolledig: ${fouten.slice(0, 5).join("; ")}`);
+    return matrix;
   } catch (err) {
-    console.error("Matrix uit Sanity laden mislukt, val terug op lokaal", err);
+    console.error("Matrix uit Webflow laden mislukt, val terug op lokaal:", err instanceof Error ? err.message : err);
     return lokaal as Matrix;
   }
 }

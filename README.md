@@ -37,13 +37,31 @@ Zet een Embed-element op de blogpagina:
 
 Partnerstatus telt niet mee in de score (er is een test die dat bewaakt) en wordt wel getoond.
 
-## Data beheren
+## Data beheren: Webflow CMS
 
-- **Nu**: `data/matrix.json`.
-- **Later**: Sanity. Zet `SANITY_PROJECT_ID`, kopieer `sanity/schema.ts` naar de Studio en importeer met `npm run sanity:export && npx sanity dataset import sanity-seed.ndjson production`. Maak een Sanity-webhook naar `POST /api/revalidate?secret=…`, zodat een publicatie direct live staat. Valt Sanity om, dan valt de app terug op de JSON.
-- Elke beoordeling heeft in Sanity een verplichte `bron` en `gecontroleerd`-datum. Na 180 dagen geeft de Studio een waarschuwing.
-- Vragen en gewichten staan bewust in code. Dat zijn productbeslissingen; die horen in een review en niet in een CMS-veld.
-  Let op: de volgorde van de antwoorden is onderdeel van de deelcode.
+De matrix staat in drie Webflow-collecties op de eigen site. Die zijn tegelijk de bron voor de widget en vindbare content (CMS-pagina's op goldfizh.nl):
+
+| Collectie | Inhoud |
+|---|---|
+| `CMS-vergelijking` (slug `cms`) | per CMS: wat is het, past bij, partner, minimale prijs, eigen frontend nodig, volgorde |
+| `CMS-criteria` | per criterium: sleutel (niet wijzigen), categorie, uitleg, in een zin, gewicht, volgorde |
+| `CMS-beoordelingen` | per CMS × criterium: score, korte tekst, let op, bron, gecontroleerd op |
+
+**Eenmalig opzetten**
+
+1. Maak in Webflow een API-token (Site settings → Apps & integrations → API access) met scope *CMS: read and write*.
+2. `WEBFLOW_API_TOKEN=… WEBFLOW_SITE_ID=… npm run webflow:import` maakt de collecties aan en vult ze vanuit `data/matrix.json` (items als concept; `-- --klaar` zet ze klaar om te publiceren). Het script stopt als de collecties al bestaan.
+3. Controleer de items in Webflow, publiceer de site.
+4. Zet in Vercel `WEBFLOW_API_TOKEN` (een token met alleen leesrechten volstaat) en de drie collectie-ID's die het script toont.
+5. Webflow → Site settings → Integrations → Webhooks: *Collection item published/changed/unpublished* naar `https://<app>/api/revalidate?secret=<REVALIDATE_SECRET>`, zodat wijzigingen direct in de widget staan.
+
+**Werking**
+
+- De app leest alleen gepubliceerde items. Concepten zie je dus pas na publiceren.
+- Ontbreekt er een beoordeling (een CMS zonder score op een criterium) of is Webflow onbereikbaar, dan valt de app terug op `data/matrix.json` en logt waarom. Een halve matrix komt nooit live.
+- `GET /api/controle?secret=…` geeft de redactiepunten: ontbrekende *Let op*-teksten, bronnen en controledata, en claims ouder dan 180 dagen. Hang er een wekelijkse cron of n8n-flow aan die bij punten mailt.
+- Vragen en gewichten per antwoord staan bewust in code (`lib/vragen.ts`): dat zijn productbeslissingen voor een review, geen CMS-velden. Let op: de volgorde van de antwoorden is onderdeel van de deelcode.
+- Veldnamen mag je in Webflow hernoemen (de slug blijft gelijk); de *Sleutel* van een criterium en de slug van een CMS niet, want daar rekent de code mee.
 
 ## Leads
 

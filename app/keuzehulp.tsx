@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { bereken, naarCode, type Reden, type Uitslag } from "@/lib/scoring.ts";
-import { basisToelichting, type Toelichtingen } from "@/lib/toelichting.ts";
+import { basisToelichting, partners, type Toelichtingen } from "@/lib/toelichting.ts";
 import type { Matrix, Vraag } from "@/lib/types.ts";
 
 interface Props {
@@ -186,7 +186,7 @@ export default function Keuzehulp({ matrix, vragen, startKeuzes, parentOrigin, p
       </div>
 
       <p className="disclaimer">
-        Goldfizh is partner van Webflow, Sanity en Prepr. Partnerschap telt niet mee in de score: elk CMS wordt op dezelfde
+        Goldfizh is partner van {partners(matrix)}. Partnerschap telt niet mee in de score: elk CMS wordt op dezelfde
         criteria beoordeeld. Dit is een eerste richting, geen definitief advies; prijzen en voorwaarden veranderen.
         {ai && " De toelichting per CMS is met AI geschreven op basis van onze vergelijking."}
       </p>
